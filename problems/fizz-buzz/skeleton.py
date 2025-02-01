@@ -1,6 +1,6 @@
+class Solution(object):
 
-class CoinChanger(object):
-
-    def make_change(self, coins, total):
+    def fizz_buzz(self, num):
         # TODO: Implement me
-        return n
+        pass
+        
