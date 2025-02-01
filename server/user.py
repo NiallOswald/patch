@@ -24,7 +24,7 @@ class User:
         return User(
             username,
             mapping.get(str.encode(HASHED_PASSWORD)).decode(),
-            mapping.get(str.encode(SCORE)).decode(),
+            int(mapping.get(str.encode(SCORE)).decode()),
         )
 
     def __str__(self):
