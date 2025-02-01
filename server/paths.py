@@ -1,0 +1,5 @@
+AUTH_SIGN_UP = "/auth/sign_up"
+AUTH_STATUS = "/auth/status"
+LEADERBOARD = "/leaderboard"
+SCORE = "/score"
+TIMETRIAL = "/timetrial"
