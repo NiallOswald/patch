@@ -1,6 +1,6 @@
 # %load test_two_sum.py
 import unittest
-
+from skeleton import *
 
 class TestTwoSum(unittest.TestCase):
 
