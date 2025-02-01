@@ -1,0 +1,19 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "patch"
+version = "0.0.1"
+dependencies = [
+    "typer",
+]
+authors = [
+  {name = "Niall Oswald", email = "niall.oswald20@imperial.ac.uk"},
+]
+description = "A CLI game to train programmers in debugging AI-written solutions to LeetCode problems."
+license = "MIT"
+readme = "README.md"
+
+[project.scripts]
+patch-cli = "patch.cli:app"
