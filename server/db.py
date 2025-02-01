@@ -1,5 +1,5 @@
 import redis
-from .user import User
+from server.user import User
 
 
 class Database:
