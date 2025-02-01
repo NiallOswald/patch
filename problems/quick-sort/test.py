@@ -1,6 +1,6 @@
 # %load test_quick_sort.py
 import unittest
-
+from skeleton import *
 
 class TestQuickSort(unittest.TestCase):
 
