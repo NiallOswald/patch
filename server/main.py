@@ -1,11 +1,12 @@
 from fastapi import FastAPI, HTTPException
-from .db import Database
+from server.db import Database
+from server.paths import AUTH_SIGN_UP, AUTH_STATUS, LEADERBOARD, SCORE, TIMETRIAL
 
 app = FastAPI()
 db = Database()
 
 
-@app.post("/auth/sign_up")
+@app.post(AUTH_SIGN_UP)
 def sign_up(username: str, hashed_password: str):
     """
     Attempt to store new user in the database. Returns 200 OK if no problem.
@@ -17,7 +18,7 @@ def sign_up(username: str, hashed_password: str):
         raise HTTPException(status_code=400, detail="User exists already")
 
 
-@app.post("/auth/status")
+@app.post(AUTH_STATUS)
 def status(username: str, hashed_password: str):
     """
     Attempt to check validity of credentials. Returns 200 OK if no problem.
@@ -29,7 +30,7 @@ def status(username: str, hashed_password: str):
         raise HTTPException(status_code=401, detail="Authentication failed")
 
 
-@app.get("/leaderboard")
+@app.get(LEADERBOARD)
 def leaderboard():
     """
     Return current leaderboard data.
@@ -37,7 +38,7 @@ def leaderboard():
     return db.retrieve_all_users()
 
 
-@app.post("/score")
+@app.get(SCORE)
 def score(username: str, hashed_password: str):
     """
     Return your highscore. (And auth)
@@ -47,7 +48,7 @@ def score(username: str, hashed_password: str):
     return db.retrieve_user(username).score
 
 
-@app.post("/timetrial")
+@app.post(TIMETRIAL)
 def timetrial(username: str, hashed_password: str, score: int):
     """
     Submit a result and replace the highscore if higher (And auth)

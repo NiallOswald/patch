@@ -1,5 +1,4 @@
-HASHED_PASSWORD = "hashed_password"
-SCORE = "score"
+from server.constants import SCORE, HASHED_PASSWORD
 
 
 class User:
