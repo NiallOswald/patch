@@ -1,6 +1,6 @@
 # %load test_n_stacks.py
 import unittest
-
+from skeleton import *
 
 class TestStacks(unittest.TestCase):
 

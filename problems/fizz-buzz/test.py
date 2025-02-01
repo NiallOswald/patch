@@ -1,5 +1,5 @@
 import unittest
-
+from skeleton import *
 
 class TestFizzBuzz(unittest.TestCase):
 

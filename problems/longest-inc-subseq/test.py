@@ -1,5 +1,6 @@
 # %load test_longest_increasing_subseq.py
 import unittest
+from skeleton import *
 
 
 class TestLongestIncreasingSubseq(unittest.TestCase):
