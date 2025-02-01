@@ -1,7 +1,7 @@
 
 # %load test_check_prime.py
 import unittest
-
+from skeleton import *
 
 class TestMath(unittest.TestCase):
 

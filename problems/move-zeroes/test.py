@@ -1,6 +1,6 @@
 # %load test_move_zeroes.py
 import unittest
-
+from skeleton import *
 
 class TestMoveZeroes(unittest.TestCase):
 
