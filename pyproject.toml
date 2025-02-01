@@ -2,10 +2,19 @@
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
+[tool.hatch.build.targets.wheel]
+packages = [
+  "patch",
+  "server",
+]
+
 [project]
 name = "patch"
 version = "0.0.1"
-dependencies = []
+dependencies = [
+  "redis[hiredis]",
+  "fastapi[standard]",
+]
 authors = [
   {name = "Niall Oswald", email = "niall.oswald20@imperial.ac.uk"},
 ]
