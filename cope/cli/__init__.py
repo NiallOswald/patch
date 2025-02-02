@@ -23,7 +23,7 @@ TRIAL_LENGTH = 30
 app = typer.Typer()
 
 app = typer.Typer()
-app.add_typer(auth.app, name="auth")
+app.add_typer(auth.app, name="auth", help="Register and log in.")
 app.add_typer(highscore.app, name="highscore")
 app.add_typer(leaderboard.app, name="leaderboard")
 
@@ -147,7 +147,9 @@ def push():
     path = Path(problem["path"])
 
     # Load skeleton code
-    skeleton = import_from_path(path / "skeleton.py", "skeleton")
+    skeleton = import_from_path(
+        path / "skeleton.py", "skeleton"
+    )  # Don't ever delete this, _ever_
 
     # Load test code
     test = import_from_path(path / "test.py", "test")

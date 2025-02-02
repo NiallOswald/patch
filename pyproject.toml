@@ -17,6 +17,7 @@ dependencies = [
   "redis[hiredis]",
   "fastapi[standard]",
   "requests",
+  "tabulate",
 ]
 authors = [
   {name = "Niall Oswald", email = "niall.oswald20@imperial.ac.uk"},
