@@ -3,20 +3,17 @@
 import typer
 
 import datetime
-import glob
 import os
-import random
-import shutil
 import signal
 import subprocess
 
 from pathlib import Path
 
-import problems
-
-from cope.cli import auth, highscore, leaderboard
+from cope.cli import auth, highscore, leaderboard, tutorial
 from cope.config import Score, Timer, Problem, NullTimer, User
 from cope.utils import ur, clear_line, import_from_path
+from cope import status as _status
+from cope import cleanup, pull
 
 TRIAL_LENGTH = 5
 
@@ -24,30 +21,15 @@ app = typer.Typer()
 
 app = typer.Typer()
 app.add_typer(auth.app, name="auth", help="Register and log in.")
+app.add_typer(tutorial.app, name="tutorial")
 app.add_typer(highscore.app, name="highscore")
 app.add_typer(leaderboard.app, name="leaderboard")
 
 
 @app.command()
 def status():
-    """Check the current time trial status."""
-    timer = Timer.get()
-
-    if dict(timer) == NullTimer:
-        message = typer.style("✗", fg=typer.colors.RED) + " No time trial in progress"
-        typer.echo(message)
-
-        return
-
-    elapsed_time = datetime.datetime.now() - datetime.datetime.fromtimestamp(
-        int(timer["init_time"])
-    )
-    time_remaining = datetime.timedelta(minutes=TRIAL_LENGTH) - elapsed_time
-
-    score = Score.get()
-    typer.echo(
-        f"Time remaining: {str(time_remaining)[2:-4]} Score: {score}"
-    )  # Messy but works
+    """Check the current time trial status"""
+    return _status()
 
 
 @app.command()
@@ -196,68 +178,6 @@ def skip():
 
     # Pull new problem
     pull()
-
-
-def pull():
-    """Pull a new problem into the working directory."""
-    typer.echo("… Pulling new problem")
-
-    # Select a random problem
-    problem_list = list(glob.glob(f"{problems.PATH}/*"))
-
-    problem_list.remove(str(problems.PATH / "__init__.py"))
-    try:
-        problem_list.remove(str(problems.PATH / "__pycache__"))
-    except ValueError:
-        pass
-
-    src_path = Path(random.choice(problem_list))
-
-    problem_id = src_path.stem
-
-    # Copy the problem to the working directory
-    working_dir = Path.cwd()
-    shutil.copytree(src_path, working_dir / src_path.stem)
-
-    # Save problem to config
-    Problem.set(problem_id, working_dir / src_path.stem)
-
-    message = typer.style("✓", fg=typer.colors.GREEN) + " Problem pulled successfully"
-    clear_line()
-    typer.echo(message)
-
-    # Show status
-    status()
-
-
-def cleanup():
-    """Clean up the working directory."""
-    typer.echo("… Cleaning up working directory")
-
-    # Remove all files in the working directory
-    problem = Problem.get()
-    dir_path = Path(problem["path"])
-
-    for filename in ["task.md", "skeleton.py", "test.py"]:
-        try:
-            os.remove(dir_path / filename)
-        except FileNotFoundError:
-            pass
-
-    # Deal with pycache
-    try:
-        shutil.rmtree(dir_path / "__pycache__")
-    except FileNotFoundError:
-        pass
-
-    os.rmdir(dir_path)
-
-    # Clear problem from config
-    Problem.clear()
-
-    message = typer.style("✓", fg=typer.colors.GREEN) + " Clean-up complete"
-    clear_line()
-    typer.echo(message)
 
 
 if __name__ == "__main__":
