@@ -2,6 +2,7 @@
 
 import sys
 from importlib.util import spec_from_file_location, module_from_spec
+from time import sleep
 
 from cope.config import User, URL
 from server.rest import UserRequests
@@ -26,3 +27,13 @@ def import_from_path(path, module_name: str):
     spec.loader.exec_module(module)
 
     return module
+
+
+def line_scroll(str_list):
+    for line in str_list:
+        for i in range(len(line)):
+            print(line[: i + 1], end="\r")
+            sleep(0.1)
+        sleep(1)
+        print()
+        print()
