@@ -5,6 +5,7 @@ build-backend = "hatchling.build"
 [tool.hatch.build.targets.wheel]
 packages = [
   "patch",
+  "problems",
   "server",
 ]
 
@@ -14,6 +15,7 @@ version = "0.0.1"
 dependencies = [
   "redis[hiredis]",
   "fastapi[standard]",
+  "requests",
 ]
 authors = [
   {name = "Niall Oswald", email = "niall.oswald20@imperial.ac.uk"},
@@ -29,4 +31,4 @@ cli = [
 
 [project.scripts]
 patch-cli = "patch.cli:app"
-patch-timer = "patch.cli.timer:app"
+patch-timer = "patch.scripts.timer:main"
