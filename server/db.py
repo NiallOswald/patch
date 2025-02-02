@@ -16,9 +16,9 @@ class Database:
     def __user_exists(self, username: str):
         return self.db.exists(username) > 0
 
-    def create_user(self, username: str, hashed_password: str):
+    def create_user(self, username: str, password: str):
         if not self.__user_exists(username):
-            user = User(username, hashed_password)
+            user = User(username, password)
             self.__put_user(user)
             return True
         else:
@@ -40,7 +40,7 @@ class Database:
         self.__put_user(user)
         return True
 
-    def authenticate(self, username, hashed_password) -> bool:
+    def authenticate(self, username, password) -> bool:
         """
         Attempt to authenticate with the specified username.
         If the username does not exist, will return False.
@@ -51,7 +51,7 @@ class Database:
         if user is None:
             return False
 
-        return hashed_password == user.hashed_password
+        return password == user.password
 
     def retrieve_all_users(self):
         """
