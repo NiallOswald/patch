@@ -15,10 +15,10 @@ from pathlib import Path
 import problems
 
 from cope.cli import auth, highscore, leaderboard
-from cope.config import Score, Timer, Problem, NullTimer
+from cope.config import Score, Timer, Problem, NullTimer, User
 from cope.utils import ur, clear_line, import_from_path
 
-TRIAL_LENGTH = 30
+TRIAL_LENGTH = 5
 
 app = typer.Typer()
 
@@ -63,6 +63,22 @@ def start():
         typer.echo(message)
 
         return
+
+    # Check auth
+    status = not ur.has_error(ur.status())
+
+    if status:
+        message = (
+            typer.style("✓", fg=typer.colors.GREEN)
+            + f" Logged in to cope leaderboard server account {User.get()["username"]}, so your results will be uploaded."
+        )
+    else:
+        message = (
+            typer.style("✗", fg=typer.colors.RED)
+            + " Not logged in to cope leaderboard server account, so results will not be uploaded.. You can quit, log in and restart to have your results uploaded."
+        )
+
+    typer.echo(message, err=(not status))
 
     # Reset score
     Score.set(0)
