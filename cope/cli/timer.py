@@ -2,7 +2,7 @@
 
 import typer
 
-from cope.cli.timetrial import quit
+from cope.cli import quit
 from time import sleep
 
 
