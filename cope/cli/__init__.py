@@ -222,7 +222,7 @@ def cleanup():
     problem = Problem.get()
     dir_path = Path(problem["path"])
 
-    for filename in ["task.txt", "skeleton.py", "test.py"]:
+    for filename in ["task.md", "skeleton.py", "test.py"]:
         try:
             os.remove(dir_path / filename)
         except FileNotFoundError:
