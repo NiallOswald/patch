@@ -1,11 +1,10 @@
-# %load test_move_zeroes.py
-import unittest
-from skeleton import *
+import unittest, skeleton
 
-class TestMoveZeroes(unittest.TestCase):
+
+class TestCase(unittest.TestCase):
 
     def test_move_zeroes(self):
-        solution = Solution()
+        solution = skeleton.Solution()
         self.assertRaises(TypeError, solution.move_zeroes, None)
         array = [0, 1, 0, 3, 12]
         solution.move_zeroes(array)
@@ -25,13 +24,13 @@ class TestMoveZeroes(unittest.TestCase):
         array = [1, 1]
         solution.move_zeroes(array)
         self.assertEqual(array, [1, 1])
-        print('Success: test_move_zeroes')
+        print("Success: test_move_zeroes")
 
 
 def main():
-    test = TestMoveZeroes()
+    test = TestCase()
     test.test_move_zeroes()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
