@@ -2,9 +2,11 @@
 
 import typer
 
-from cope import pull
-from cope.utils import line_scroll
 from time import sleep
+
+import cope
+from cope.utils import line_scroll
+
 
 BANNER = r"""
  ______   ______   ______   ______             ______   ________  __       ______   _________  
@@ -35,6 +37,11 @@ TUTORIAL = [
 app = typer.Typer()
 
 
+def push():
+    """Submit the current problem for testing."""
+    pass
+
+
 @app.callback(invoke_without_command=True)
 def main():
     # Display the banner
@@ -45,7 +52,7 @@ def main():
     line_scroll(PRE_TUTORIAL)
 
     # Pull tutorial
-    pull("tutorial")
+    cope.start("tutorial")
 
     line_scroll(TUTORIAL)
 

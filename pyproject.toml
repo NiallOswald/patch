@@ -18,6 +18,7 @@ dependencies = [
   "fastapi[standard]",
   "requests",
   "tabulate",
+  "typer",
 ]
 authors = [
   {name = "Niall Oswald", email = "niall.oswald20@imperial.ac.uk"},
@@ -25,11 +26,6 @@ authors = [
 description = "A CLI game to train programmers in debugging AI-written solutions to LeetCode problems."
 license = "MIT"
 readme = "README.md"
-
-[project.optional-dependencies]
-cli = [
-  "typer",
-]
 
 [project.scripts]
 cope = "cope.cli:app"
