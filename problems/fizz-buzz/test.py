@@ -3,13 +3,12 @@ import unittest, skeleton
 
 class TestCase(unittest.TestCase):
 
-    def __init__(self, solution):
-        self.solution = solution
-
     def test_fizz_buzz(self):
 
-        self.assertRaises(TypeError, self.solution(), None)
-        self.assertRaises(ValueError, self.solution(), 0)
+        solution = skeleton.Solution()
+
+        self.assertRaises(TypeError, solution.fizz_buzz(), None)
+        self.assertRaises(ValueError, solution.fizz_buzz(), 0)
         expected = [
             "1",
             "2",
@@ -27,7 +26,7 @@ class TestCase(unittest.TestCase):
             "14",
             "FizzBuzz",
         ]
-        self.assertEqual(skeleton.solution.fizz_buzz(15), expected)
+        self.assertEqual(solution.fizz_buzz(15), expected)
         print("Success: test_fizz_buzz")
 
 
