@@ -1,7 +1,7 @@
 """Time trial timer."""
 
 from argparse import ArgumentParser
-from cope.cli.timetrial import quit
+from cope.cli import quit
 from time import sleep
 
 
