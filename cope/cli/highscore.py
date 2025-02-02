@@ -15,13 +15,5 @@ def highscore():
         print(response.json())
 
 
-@app.command()
-def top():
-    """Show the highscores."""
-    response = ur.leaderboard()
-    if not ur.has_error(response):
-        print(response.json())
-
-
 if __name__ == "__main__":
     app()
