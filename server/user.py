@@ -1,11 +1,11 @@
-from server.constants import SCORE, HASHED_PASSWORD
+from server.constants import SCORE, PASSWORD
 
 
 class User:
 
-    def __init__(self, username: str, hashed_password: str, score: int = 0):
+    def __init__(self, username: str, password: str, score: int = 0):
         self.username = username
-        self.hashed_password = hashed_password
+        self.password = password
         self.score = score
 
     def __set_score(self, score: int):
@@ -16,15 +16,15 @@ class User:
             self.__set_score(new_score)
 
     def get_db_object_mapping(self):
-        return {HASHED_PASSWORD: self.hashed_password, SCORE: self.score}
+        return {PASSWORD: self.password, SCORE: self.score}
 
     @classmethod
-    def from_db_object_mapping(self, username: str, mapping: dict):
-        return User(
+    def from_db_object_mapping(cls, username: str, mapping: dict):
+        return cls(
             username,
-            mapping.get(str.encode(HASHED_PASSWORD)).decode(),
+            mapping.get(str.encode(PASSWORD)).decode(),
             int(mapping.get(str.encode(SCORE)).decode()),
         )
 
     def __str__(self):
-        return f"User({self.username}, {self.hashed_password}, {self.score})"
+        return f"User({self.username}, {self.password}, {self.score})"

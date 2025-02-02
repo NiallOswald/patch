@@ -1,3 +1,3 @@
-HASHED_PASSWORD = "hashed_password"
+PASSWORD = "password"
 USERNAME = "username"
 SCORE = "score"
