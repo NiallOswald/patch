@@ -7,24 +7,24 @@ db = Database()
 
 
 @app.post(AUTH_SIGN_UP)
-def sign_up(username: str, hashed_password: str):
+def sign_up(username: str, password: str):
     """
     Attempt to store new user in the database. Returns 200 OK if no problem.
     Return appropriate error codes if duplicate or incorrect types. Error out for multiple! (Don't overwrite)
     """
-    if db.create_user(username, hashed_password):
+    if db.create_user(username, password):
         return True
     else:
         raise HTTPException(status_code=400, detail="User exists already")
 
 
 @app.post(AUTH_STATUS)
-def status(username: str, hashed_password: str):
+def status(username: str, password: str):
     """
     Attempt to check validity of credentials. Returns 200 OK if no problem.
     Returns appropriate error codes if user doesn't exist or incorrect types/values
     """
-    if db.authenticate(username, hashed_password):
+    if db.authenticate(username, password):
         return True
     else:
         raise HTTPException(status_code=401, detail="Authentication failed")
@@ -39,21 +39,21 @@ def leaderboard():
 
 
 @app.get(SCORE)
-def score(username: str, hashed_password: str):
+def score(username: str, password: str):
     """
     Return your highscore. (And auth)
     """
-    if not db.authenticate(username, hashed_password):
+    if not db.authenticate(username, password):
         raise HTTPException(status_code=401, detail="Authentication failed")
     return db.retrieve_user(username).score
 
 
 @app.post(TIMETRIAL)
-def timetrial(username: str, hashed_password: str, score: int):
+def timetrial(username: str, password: str, score: int):
     """
     Submit a result and replace the highscore if higher (And auth)
     """
-    if not db.authenticate(username, hashed_password):
+    if not db.authenticate(username, password):
         raise HTTPException(status_code=401, detail="Authentication failed")
     db.update_highscore(username, score)
     return True
